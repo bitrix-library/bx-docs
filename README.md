@@ -40,3 +40,23 @@ if (Loader::includeModule('sale')) {
   print_r($basket->getListOfFormatText());
 }
 ```
+
+### Получение списка товаров корзины текущего пользователя D7
+```
+if (Loader::includeModule('sale')) {
+    $basket = Basket::loadItemsForFUser(Fuser::getId(), Context::getCurrent()->getSite());
+    $db_list = Basket::getList([
+        'select' => ['NAME', 'QUANTITY'],
+        'filter' => [
+            '=FUSER_ID' => Fuser::getId(),
+            '=ORDER_ID' => null,
+            '=LID' => Context::getCurrent()->getSite(),
+            '=CAN_BUY' => 'Y',
+        ]
+    ]);
+    while ($db_el = $db_list->fetch())
+    {
+        print_r($db_el);
+    }
+}
+```
