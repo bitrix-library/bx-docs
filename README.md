@@ -105,9 +105,12 @@ if (Loader::includeModule('sale') && Loader::includeModule('iblock')) {
             $db_iblock_el['PREVIEW_PICTURE'] = CFile::ResizeImageGet($db_iblock_el["PREVIEW_PICTURE"], ['width' => 500, 'height' => 500], BX_RESIZE_IMAGE_PROPORTIONAL, true);
             $db_basket_el['PRODUCT'] = $db_iblock_el;
         }
+        unset($db_iblock_list);
 
         $items[] = $db_basket_el;
     }
+    
+    unset($db_basket_list);
 }
 
 print_r($items);
