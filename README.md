@@ -28,3 +28,15 @@ if (Loader::includeModule('sale')) {
   print_r($basket->getListOfFormatText());
 }
 ```
+
+### Обновление товара в корзине D7
+```
+if (Loader::includeModule('sale')) {
+  $product_id = 1;
+  $basket = Basket::loadItemsForFUser(Fuser::getId(), Context::getCurrent()->getSite());
+  $basketItem = $basket->getExistsItem('catalog', $product_id);
+  $basketItem->setField('QUANTITY', $basketItem->getQuantity() + $quantity);
+  $basket->save();
+  print_r($basket->getListOfFormatText());
+}
+```
