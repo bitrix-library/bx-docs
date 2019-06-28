@@ -1,12 +1,12 @@
 # Полезные ссылки
 
-[Работа с Bitrix API](https://github.com/sidigi/bitrix-info/wiki)
+* [Работа с Bitrix API](https://github.com/sidigi/bitrix-info/wiki)
 
-[Работа с заказами D7](https://dev.1c-bitrix.ru/api_d7/bitrix/sale/technique/index.php)
+* [Работа с заказами D7](https://dev.1c-bitrix.ru/api_d7/bitrix/sale/technique/index.php)
 
-[Работа с корзиной D7](https://dev.1c-bitrix.ru/api_d7/bitrix/sale/technique/basket.php)
+* [Работа с корзиной D7](https://dev.1c-bitrix.ru/api_d7/bitrix/sale/technique/basket.php)
 
-[Приёмы работы с методами интернет-магазина D7](https://dev.1c-bitrix.ru/api_d7/bitrix/sale/technique/orders.php)
+* [Приёмы работы с методами интернет-магазина D7](https://dev.1c-bitrix.ru/api_d7/bitrix/sale/technique/orders.php)
 
 # Корзина
 
