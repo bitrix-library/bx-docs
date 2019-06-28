@@ -60,3 +60,55 @@ if (Loader::includeModule('sale')) {
     }
 }
 ```
+
+### Получение списка товаров корзины текущего пользователя и связанных с ними элементов инфоблоков
+```
+$iblock_properties_to_return = ['ID', 'IBLOCK_ID', 'NAME', 'PREVIEW_PICTURE', 'DETAIL_PAGE_URL']; // Если необходимо получить все свойства: ['ID', 'IBLOCK_ID', '*']
+$basket_properties_to_return = ['PRODUCT_ID', 'QUANTITY', 'PRICE', 'WEIGHT']; // Если необходимо получить все поля: 'select' => ['*']
+
+$items = [];
+
+if (Loader::includeModule('sale') && Loader::includeModule('iblock')) {
+
+    $basket = Basket::loadItemsForFUser(Fuser::getId(), Context::getCurrent()->getSite());
+
+    $db_basket_list = Basket::getList([
+        'select' => $basket_properties_to_return,
+        'filter' => [
+            '=FUSER_ID' => Fuser::getId(),
+            '=ORDER_ID' => null,
+            '=LID' => Context::getCurrent()->getSite(),
+            '=CAN_BUY' => 'Y',
+        ]
+    ]);
+
+    while ($db_basket_el = $db_basket_list->fetch())
+    {
+
+        // Получение IBLOCK_ID элемента с которым связан продукт
+        $db_iblock_list = CIBlockElement::GetById($db_basket_el['PRODUCT_ID']);
+        if ($db_iblock_el = $db_iblock_list->GetNext()) {
+            $db_basket_el['PRODUCT_IBLOCK_ID'] = $db_iblock_el['IBLOCK_ID'];
+        }
+        unset($db_iblock_list);
+
+        // Получение всех полей элемента с которым связан продукт
+        $db_iblock_list = CIBlockElement::GetList(
+            [],
+            ['IBLOCK_ID' => $db_basket_el['PRODUCT_IBLOCK_ID'], 'ID' => $db_basket_el['PRODUCT_ID']],
+            false,
+            false,
+            $iblock_properties_to_return
+        );
+        if ($db_iblock_el = $db_iblock_list->GetNext()) {
+            // Получение картинки и изменение ее размеров
+            $db_iblock_el['PREVIEW_PICTURE'] = CFile::ResizeImageGet($db_iblock_el["PREVIEW_PICTURE"], ['width' => 500, 'height' => 500], BX_RESIZE_IMAGE_PROPORTIONAL, true);
+            $db_basket_el['PRODUCT'] = $db_iblock_el;
+        }
+
+        $items[] = $db_basket_el;
+    }
+}
+
+print_r($items);
+```
