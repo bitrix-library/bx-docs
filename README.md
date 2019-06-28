@@ -46,7 +46,7 @@ if (Loader::includeModule('sale')) {
 if (Loader::includeModule('sale')) {
     $basket = Basket::loadItemsForFUser(Fuser::getId(), Context::getCurrent()->getSite());
     $db_list = Basket::getList([
-        'select' => ['NAME', 'QUANTITY'],
+        'select' => ['*'],
         'filter' => [
             '=FUSER_ID' => Fuser::getId(),
             '=ORDER_ID' => null,
