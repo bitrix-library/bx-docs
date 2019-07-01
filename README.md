@@ -146,7 +146,7 @@ $msg['status'] = false;
 
 if (Loader::includeModule('sale')) {
 
-    $product_id = intval($_REQUEST['product_id']);
+    $product_id = 1;
 
     if($product_id) {
 
