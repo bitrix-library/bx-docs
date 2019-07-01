@@ -137,5 +137,5 @@ if (Loader::includeModule('sale') && Loader::includeModule('iblock')) {
     $info['QUANTITY'] = count($info['ITEMS_QUANTITY']);
 }
 
-echo json_encode($info);
+print_r($info);
 ```
