@@ -11,7 +11,7 @@
 # Корзина
 
 ### Добавление товара в корзину D7
-```
+```php
 if (Loader::includeModule('sale')) {
   $product_id = 1;
   $basket = Basket::loadItemsForFUser(Fuser::getId(), Context::getCurrent()->getSite());
@@ -30,7 +30,7 @@ if (Loader::includeModule('sale')) {
 ```
 
 ### Обновление товара в корзине D7
-```
+```php
 if (Loader::includeModule('sale')) {
   $product_id = 1;
   $basket = Basket::loadItemsForFUser(Fuser::getId(), Context::getCurrent()->getSite());
@@ -42,7 +42,7 @@ if (Loader::includeModule('sale')) {
 ```
 
 ### Получение списка товаров корзины текущего пользователя D7
-```
+```php
 if (Loader::includeModule('sale')) {
     $basket = Basket::loadItemsForFUser(Fuser::getId(), Context::getCurrent()->getSite());
     $db_list = Basket::getList([
@@ -62,7 +62,7 @@ if (Loader::includeModule('sale')) {
 ```
 
 ### Получение списка товаров корзины текущего пользователя и связанных с ними элементов инфоблоков
-```
+```php
 $iblock_properties_to_return = ['ID', 'IBLOCK_ID', 'NAME', 'PREVIEW_PICTURE', 'DETAIL_PAGE_URL']; // Если необходимо получить все свойства: ['ID', 'IBLOCK_ID', '*']
 $basket_properties_to_return = ['PRODUCT_ID', 'QUANTITY', 'PRICE', 'WEIGHT']; // Если необходимо получить все поля: 'select' => ['*']
 
@@ -119,7 +119,7 @@ print_r($items);
 ```
 
 ### Получение информации о корзине текущего пользователя
-```
+```php
 $info = [];
 
 if (Loader::includeModule('sale') && Loader::includeModule('iblock')) {
