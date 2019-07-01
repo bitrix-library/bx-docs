@@ -122,7 +122,7 @@ print_r($items);
 ```php
 $info = [];
 
-if (Loader::includeModule('sale') && Loader::includeModule('iblock')) {
+if (Loader::includeModule('sale')) {
 
     $basket = Basket::loadItemsForFUser(Fuser::getId(), Context::getCurrent()->getSite());
 
