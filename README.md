@@ -117,3 +117,25 @@ if (Loader::includeModule('sale') && Loader::includeModule('iblock')) {
 
 print_r($items);
 ```
+
+### Получение информации о корзине текущего пользователя
+```
+$info = [];
+
+if (Loader::includeModule('sale') && Loader::includeModule('iblock')) {
+
+    $basket = Basket::loadItemsForFUser(Fuser::getId(), Context::getCurrent()->getSite());
+
+    $info['PRICE'] = $basket->getPrice();
+    $info['PRICE_WITHOUT_DISCOUNTS'] = $basket->getBasePrice();
+    $info['WEIGHT'] = $basket->getWeight();
+    $info['VAT_RATE'] = $basket->getVatRate();
+    $info['VAT_SUM'] = $basket->getVatSum();
+    $info['FORMATTED_PRICE'] = CCurrencyLang::CurrencyFormat($info['PRICE'], CCurrency::GetBaseCurrency());
+    $info['FORMATTED_PRICE_WITHOUT_DISCOUNTS'] = CCurrencyLang::CurrencyFormat($info['PRICE_WITHOUT_DISCOUNTS'], CCurrency::GetBaseCurrency());
+    $info['ITEMS_QUANTITY'] = $basket->getQuantityList();
+    $info['QUANTITY'] = count($info['ITEMS_QUANTITY']);
+}
+
+echo json_encode($info);
+```
