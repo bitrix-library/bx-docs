@@ -106,6 +106,8 @@ if (Loader::includeModule('sale') && Loader::includeModule('iblock')) {
             $db_basket_el['PRODUCT'] = $db_iblock_el;
         }
         unset($db_iblock_list);
+        
+        $db_basket_el['FORMATTED_PRICE'] = CurrencyFormat($db_basket_el['PRICE'], $db_basket_el['CURRENCY']);
 
         $items[] = $db_basket_el;
     }
