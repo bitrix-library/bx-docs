@@ -139,3 +139,28 @@ if (Loader::includeModule('sale')) {
 
 print_r($info);
 ```
+
+### Удаление товара из корзины текущего пользователя
+```php
+$msg['status'] = false;
+
+if (Loader::includeModule('sale')) {
+
+    $product_id = intval($_REQUEST['product_id']);
+
+    if($product_id) {
+
+        $basket = Basket::loadItemsForFUser(Fuser::getId(), Context::getCurrent()->getSite());
+
+        if ($basketItem = $basket->getExistsItem('catalog', $product_id)) {
+
+            $basketItem->delete();
+            $basket->save();
+
+            $msg['status'] = true;
+        }
+    }
+}
+
+print_r($msg);
+```
