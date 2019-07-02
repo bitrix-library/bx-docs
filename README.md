@@ -2,7 +2,7 @@
 
 * [ajax_basket_handler.php - Пример handler-а для работы с корзиной при помощи ajax-запросов](https://github.com/amensum/bitrix-info/blob/master/ajax_basket_handler.php)
 
-* [ajax_basket_template.php - Пример шаблона корзины для работы с ajax_basket_handler.php](https://github.com/amensum/bitrix-info/blob/master/ajax_basket_handler.php)
+* [ajax_basket_template.php - Пример шаблона для работы с корзиной при помощи ajax-запросов](https://github.com/amensum/bitrix-info/blob/master/ajax_basket_handler.php)
 
 # Полезные ссылки
 
