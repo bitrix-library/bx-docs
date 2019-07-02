@@ -164,3 +164,48 @@ if (Loader::includeModule('sale')) {
 
 print_r($msg);
 ```
+
+### Изменение количества товара в корзине текущего пользователя
+```php
+$msg['status'] = false;
+
+if (Loader::includeModule('sale')) {
+
+    $product_id = 1;
+    $quantity = 1;
+
+    if($product_id && $quantity) {
+
+        $basket = Basket::loadItemsForFUser(Fuser::getId(), Context::getCurrent()->getSite());
+
+        if ($basketItem = $basket->getExistsItem('catalog', $product_id)) {
+
+            // Обновление товара в корзине
+            $basketItem->setField('QUANTITY', $quantity);
+            $basket->save();
+
+            $msg['status'] = true;
+            $msg['action'] = 'update';
+
+        } else {
+
+            // Добавление товара в корзину
+            $basketItem = $basket->createItem('catalog', $product_id);
+            $basketItem->setFields(
+                [
+                    'QUANTITY' => $quantity,
+                    'CURRENCY' => Bitrix\Currency\CurrencyManager::getBaseCurrency(),
+                    'LID' => Bitrix\Main\Context::getCurrent()->getSite(),
+                    'PRODUCT_PROVIDER_CLASS' => 'CCatalogProductProvider'
+                ]
+            );
+            $basket->save();
+
+            $msg['status'] = true;
+            $msg['action'] = 'add';
+        }
+    }
+}
+
+print_r($msg);
+```
