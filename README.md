@@ -1,3 +1,7 @@
+# Файлы
+
+* [ajax.php - Пример handler-а для работы с корзиной при помощи ajax-запросов](https://github.com/amensum/bitrix-info/blob/master/ajax.php)
+
 # Полезные ссылки
 
 * [Работа с Bitrix API](https://github.com/sidigi/bitrix-info/wiki)
