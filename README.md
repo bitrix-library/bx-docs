@@ -8,6 +8,8 @@
 
 * [Работа с Bitrix API](https://github.com/sidigi/bitrix-info/wiki)
 
+* [Создание многоуровневого меню](https://abraxabra.ru/blog/bitrix-zametki/multilevel-menu-bitrix/)
+
 * [Работа с заказами D7](https://dev.1c-bitrix.ru/api_d7/bitrix/sale/technique/index.php)
 
 * [Работа с корзиной D7](https://dev.1c-bitrix.ru/api_d7/bitrix/sale/technique/basket.php)
