@@ -4,6 +4,8 @@
 
 * [ajax_basket_template.php - Пример шаблона для работы с корзиной при помощи ajax-запросов](https://github.com/amensum/bitrix-info/blob/master/ajax_basket_template.php)
 
+* [custom_smart_filter_template.php - Пример шаблона умного фильтра](https://github.com/amensum/bitrix-info/blob/master/custom_smart_filter_template.php), где в качестве component.js должен быть подключен [buildGetRequestParams.js](https://github.com/amensum/js-helpers/blob/master/buildGetRequestParams.js)
+
 # Полезные ссылки
 
 * [Работа с Bitrix API](https://github.com/sidigi/bitrix-info/wiki)
