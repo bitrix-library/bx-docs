@@ -9,7 +9,7 @@ use Bitrix\Main\Context;
 use Bitrix\Main\Loader;
 
 $iblock_properties_to_return = ['ID', 'IBLOCK_ID', 'NAME', 'PREVIEW_PICTURE', 'DETAIL_PAGE_URL', 'PROPERTY_ARTNUMBER']; // Если необходимо получить все свойства: ['ID', 'IBLOCK_ID', '*']
-$basket_properties_to_return = ['PRODUCT_ID', 'QUANTITY', 'PRICE', 'WEIGHT', 'CURRENCY']; // Если необходимо получить все поля: 'select' => ['*']
+$basket_properties_to_return = ['PRODUCT_ID', 'QUANTITY', 'PRICE', 'WEIGHT', 'CURRENCY']; // Если необходимо получить все поля: ['*']
 
 /**
  * Handler: add_product_to_basket
@@ -135,8 +135,6 @@ if($_REQUEST['action'] == 'get_items_from_basket') {
     $items = [];
 
     if (Loader::includeModule('sale') && Loader::includeModule('iblock')) {
-
-        $basket = Basket::loadItemsForFUser(Fuser::getId(), Context::getCurrent()->getSite());
 
         $db_basket_list = Basket::getList([
             'select' => $basket_properties_to_return,
