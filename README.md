@@ -1,5 +1,7 @@
 # Файлы
 
+_Файлы представлены только для теста, они могут быть незавершенными или частичными._
+
 * [ajax_basket_handler.php - Пример handler-а для работы с корзиной при помощи ajax-запросов](https://github.com/amensum/bitrix-info/blob/master/ajax_basket_handler.php)
 
 * [ajax_basket_template.php - Пример шаблона для работы с корзиной при помощи ajax-запросов](https://github.com/amensum/bitrix-info/blob/master/ajax_basket_template.php)
