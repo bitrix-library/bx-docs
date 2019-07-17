@@ -82,8 +82,6 @@ $items = [];
 
 if (Loader::includeModule('sale') && Loader::includeModule('iblock')) {
 
-    $basket = Basket::loadItemsForFUser(Fuser::getId(), Context::getCurrent()->getSite());
-
     $db_basket_list = Basket::getList([
         'select' => $basket_properties_to_return,
         'filter' => [
