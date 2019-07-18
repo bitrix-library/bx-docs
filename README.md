@@ -20,6 +20,23 @@ _Файлы представлены только для теста, они мо
 
 * [Приёмы работы с методами интернет-магазина D7](https://dev.1c-bitrix.ru/api_d7/bitrix/sale/technique/orders.php)
 
+### Модули
+
+* [Структура полной сборки модуля](https://dev.1c-bitrix.ru/learning/course/index.php?COURSE_ID=101&LESSON_ID=3216&LESSON_PATH=8781.4793.3216)
+
+* [Пример создания модуля](https://dev.1c-bitrix.ru/learning/course/index.php?COURSE_ID=101&LESSON_ID=2902&LESSON_PATH=8781.4793.2902)
+
+
+* [Взаимодействие модулей](https://dev.1c-bitrix.ru/learning/course/index.php?COURSE_ID=43&LESSON_ID=2825&LESSON_PATH=3913.4609.2825)
+
+### События
+
+* [Список событий](https://dev.1c-bitrix.ru/api_help/main/events/index.php)
+
+* [Регистрация и обработка событий D7](https://dev.1c-bitrix.ru/api_d7/bitrix/main/EventManager/index.php)
+
+* [Регистрация событий](https://dev.1c-bitrix.ru/api_help/main/functions/module/registermoduledependences.php)
+
 # Корзина
 
 ### Добавление товара в корзину D7
