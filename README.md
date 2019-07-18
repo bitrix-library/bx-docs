@@ -37,6 +37,8 @@ _Файлы представлены только для теста, они мо
 
 * [Регистрация событий](https://dev.1c-bitrix.ru/api_help/main/functions/module/registermoduledependences.php)
 
+* [Страница и порядок её выполнения](https://dev.1c-bitrix.ru/api_help/main/general/pageplan.php)
+
 # Корзина
 
 ### Добавление товара в корзину D7
