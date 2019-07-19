@@ -249,7 +249,6 @@ $db_list = CSaleDelivery::GetList(["SORT" => "ASC"], ["ACTIVE" => "Y"]);
 while ($db_el = $db_list->GetNext()) {
   $delivery[] = $db_el;
 }
-print_r($delivery);
 unset($db_list);
 print_r($delivery);
 ```
