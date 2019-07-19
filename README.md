@@ -238,3 +238,18 @@ if (Loader::includeModule('sale')) {
 
 print_r($msg);
 ```
+
+# Заказ
+
+### Получить доступные методы доставки
+
+```php
+$delivery = [];
+$db_list = CSaleDelivery::GetList(["SORT" => "ASC"], ["ACTIVE" => "Y"]);
+while ($db_el = $db_list->GetNext()) {
+  $delivery[] = $db_el;
+}
+print_r($delivery);
+unset($db_list);
+print_r($delivery);
+```
