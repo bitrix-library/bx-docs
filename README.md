@@ -39,6 +39,38 @@ _Файлы представлены только для теста, они мо
 
 * [Страница и порядок её выполнения](https://dev.1c-bitrix.ru/api_help/main/general/pageplan.php)
 
+# Платежные системы
+
+### Получение списка платежных систем D7
+
+```php
+$paysystem = [];
+$db_list = \Bitrix\Sale\PaySystem\Manager::getList();
+while ($db_el = $db_list->fetch()) {
+  $paysystem[] = $db_el;
+}
+print_r($paysystem);
+```
+
+# Службы доставки
+
+### Получение списка служб доставок D7
+
+```php
+$delivery = [];
+$list = Delivery\Services\Manager::getActiveList();
+foreach ($list as $service) {
+  if ($service['CLASS_NAME'] == '\Bitrix\Sale\Delivery\Services\EmptyDeliveryService') {
+    continue;
+  }
+  $service['PROPS_GROUP_ID'] = 'DELIVERY';
+  $service['PRICE'] = $service['CONFIG']['MAIN']['PRICE'];
+  $service['LOGOTIP'] = CFile::ResizeImageGet($service['LOGOTIP'], ['width' => 500, 'height' => 500], BX_RESIZE_IMAGE_PROPORTIONAL, true);
+  $delivery[] = $service;
+}
+print_r($delivery);
+```
+
 # Корзина
 
 ### Добавление товара в корзину D7
