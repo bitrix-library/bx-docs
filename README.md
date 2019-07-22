@@ -47,6 +47,7 @@ _Файлы представлены только для теста, они мо
 $paysystem = [];
 $db_list = \Bitrix\Sale\PaySystem\Manager::getList();
 while ($db_el = $db_list->fetch()) {
+  $db_el['LOGOTIP'] = CFile::ResizeImageGet($db_el['LOGOTIP'], ['width' => 500, 'height' => 500], BX_RESIZE_IMAGE_PROPORTIONAL, true);
   $paysystem[] = $db_el;
 }
 print_r($paysystem);
