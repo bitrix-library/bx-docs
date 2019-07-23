@@ -79,6 +79,30 @@ foreach ($list as $service) {
 print_r($delivery);
 ```
 
+# JS и CSS
+
+## Подключить JS или CSS D7
+
+### В шаблоне компонента
+```php
+$this->addExternalCss("/local/styles.css");
+$this->addExternalJS("/local/liba.js");
+```
+
+### В любом месте
+```php
+\Bitrix\Main\Page\Asset::getInstance()->addCss("/local/styles.css");
+\Bitrix\Main\Page\Asset::getInstance()->addJs("/local/liba.js");
+```
+
+# Модуль
+
+### Получить путь к корневой директории модуля
+```php
+$module_absolute_path = str_replace("\\", "/", dirname(__DIR__ . '\\..\\'));
+$module_relative_path = str_replace($_SERVER['DOCUMENT_ROOT'], '', $module_absolute_path);
+```
+
 # Корзина
 
 ### Добавление товара в корзину D7
