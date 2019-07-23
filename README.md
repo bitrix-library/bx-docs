@@ -134,54 +134,61 @@ if (Loader::includeModule('sale')) {
 
 ### Получение списка товаров корзины текущего пользователя и связанных с ними элементов инфоблоков
 ```php
-$iblock_properties_to_return = ['ID', 'IBLOCK_ID', 'NAME', 'PREVIEW_PICTURE', 'DETAIL_PAGE_URL']; // Если необходимо получить все свойства: ['ID', 'IBLOCK_ID', '*']
-$basket_properties_to_return = ['PRODUCT_ID', 'QUANTITY', 'PRICE', 'WEIGHT']; // Если необходимо получить все поля: 'select' => ['*']
-
 $items = [];
+		
+$basket = \Bitrix\Sale\Baske::loadItemsForFUser(\Bitrix\Sale\Fuser::getId(), \Bitrix\Main\Application::getInstance()->getContext();
 
-if (Loader::includeModule('sale') && Loader::includeModule('iblock')) {
+// <DISCOUNTS> : apply
+$discounts_context = new \Bitrix\Sale\Discount\Context\Fuser(\Bitrix\Sale\Fuser::getId());
+$discounts = Discount::buildFromBasket($basket, $discounts_context);
+$result = $discounts->calculate()->getData();
+$basket->applyDiscount($result['BASKET_ITEMS']);
+// </DISCOUNTS>
 
-    $db_basket_list = Basket::getList([
-        'select' => $basket_properties_to_return,
-        'filter' => [
-            '=FUSER_ID' => Fuser::getId(),
-            '=ORDER_ID' => null,
-            '=LID' => Context::getCurrent()->getSite(),
-            '=CAN_BUY' => 'Y',
-        ]
-    ]);
+$basket_items = $basket->getBasketItems();
 
-    while ($db_basket_el = $db_basket_list->fetch())
-    {
+foreach ($basket_items as $obj) {
+  $item = [];
+  $item['PRODUCT_ID'] = $obj->getProductId();
+  $item['PRICE'] = $obj->getPrice();
+  $item['SUM_PRICE'] = $obj->getFinalPrice();
+  $item['CURRENCY'] = $obj->getCurrency();
+  $item['QUANTITY'] = $obj->getQuantity();
+  $item['WEIGHT'] = $obj->getWeight();
+  $item['FORMATTED_PRICE'] = \CCurrencyLang::CurrencyFormat($item['PRICE'], $item['CURRENCY']);
+  $item['SUM_FORMATTED_PRICE'] = \CCurrencyLang::CurrencyFormat($item['SUM_PRICE'], $item['CURRENCY']);
 
-        // Получение IBLOCK_ID элемента с которым связан продукт
-        $db_iblock_list = CIBlockElement::GetById($db_basket_el['PRODUCT_ID']);
-        if ($db_iblock_el = $db_iblock_list->GetNext()) {
-            $db_basket_el['PRODUCT_IBLOCK_ID'] = $db_iblock_el['IBLOCK_ID'];
-        }
-        unset($db_iblock_list);
+  // Получение IBLOCK_ID элемента с которым связан продукт
+  $db_iblock_list = \CIBlockElement::GetById($item['PRODUCT_ID']);
+  if ($db_iblock_el = $db_iblock_list->GetNext()) {
+    $item['PRODUCT_IBLOCK_ID'] = $db_iblock_el['IBLOCK_ID'];
+  }
+  unset($db_iblock_list);
 
-        // Получение всех полей элемента с которым связан продукт
-        $db_iblock_list = CIBlockElement::GetList(
-            [],
-            ['IBLOCK_ID' => $db_basket_el['PRODUCT_IBLOCK_ID'], 'ID' => $db_basket_el['PRODUCT_ID']],
-            false,
-            false,
-            $iblock_properties_to_return
-        );
-        if ($db_iblock_el = $db_iblock_list->GetNext()) {
-            // Получение картинки и изменение ее размеров
-            $db_iblock_el['PREVIEW_PICTURE'] = CFile::ResizeImageGet($db_iblock_el["PREVIEW_PICTURE"], ['width' => 500, 'height' => 500], BX_RESIZE_IMAGE_PROPORTIONAL, true);
-            $db_basket_el['PRODUCT'] = $db_iblock_el;
-        }
-        unset($db_iblock_list);
-        
-        $db_basket_el['FORMATTED_PRICE'] = CurrencyFormat($db_basket_el['PRICE'], $db_basket_el['CURRENCY']);
+  $allowed_fields_iblock = [
+    'ID',
+    'IBLOCK_ID',
+    'NAME',
+    'PREVIEW_PICTURE',
+    'DETAIL_PAGE_URL',
+  ]; // Если необходимо получить все свойства: ['ID', 'IBLOCK_ID', '*']
 
-        $items[] = $db_basket_el;
-    }
-    
-    unset($db_basket_list);
+  // Получение всех полей элемента с которым связан продукт
+  $db_iblock_list = \CIBlockElement::GetList(
+    [],
+    ['IBLOCK_ID' => $item['PRODUCT_IBLOCK_ID'], 'ID' => $item['PRODUCT_ID']],
+    false,
+    false,
+    $allowed_fields_iblock
+  );
+  if ($db_iblock_el = $db_iblock_list->GetNext()) {
+    // Получение картинки и изменение ее размеров
+    $db_iblock_el['PREVIEW_PICTURE'] = \CFile::ResizeImageGet($db_iblock_el["PREVIEW_PICTURE"], ['width' => 500, 'height' => 500], BX_RESIZE_IMAGE_PROPORTIONAL, true);
+    $item['PRODUCT'] = $db_iblock_el;
+  }
+  unset($db_iblock_list);
+
+  $items[] = $item;
 }
 
 print_r($items);
