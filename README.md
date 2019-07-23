@@ -98,6 +98,7 @@ $this->addExternalJS("/local/liba.js");
 # Модуль
 
 ### Получить путь к корневой директории модуля
+_Например в скрипте в директории, которая находится в корневой директории модуля:_
 ```php
 $module_absolute_path = str_replace("\\", "/", dirname(__DIR__ . '\\..\\'));
 $module_relative_path = str_replace($_SERVER['DOCUMENT_ROOT'], '', $module_absolute_path);
