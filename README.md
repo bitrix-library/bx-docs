@@ -212,7 +212,7 @@ print_r($info);
 ### Применение скидок к корзине
 ```php
 $basket = Basket::loadItemsForFUser(\Bitrix\Sale\Fuser::getId(), \Bitrix\Main\Application::getInstance()->getContext()->getSite());
-$discounts_context = new \Bitrix\Sale\Discount\Context\Fuser(Fuser::getId());
+$discounts_context = new \Bitrix\Sale\Discount\Context\Fuser(\Bitrix\Sale\Fuser::getId());
 $discounts = Discount::buildFromBasket($basket, $discounts_context);
 $result = $discounts->calculate()->getData();
 $basket->applyDiscount($result['BASKET_ITEMS']);
