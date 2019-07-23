@@ -209,6 +209,15 @@ if (Loader::includeModule('sale')) {
 print_r($info);
 ```
 
+### Применение скидок к корзине
+```php
+$basket = Basket::loadItemsForFUser(Fuser::getId(), $this->context->getSite());
+$discounts_context = new Discount\Context\Fuser(Fuser::getId());
+$discounts = Discount::buildFromBasket($basket, $discounts_context);
+$result = $discounts->calculate()->getData();
+$basket->applyDiscount($result['BASKET_ITEMS']);
+```
+
 ### Удаление товара из корзины текущего пользователя D7
 ```php
 $msg['status'] = false;
