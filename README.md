@@ -136,7 +136,7 @@ if (Loader::includeModule('sale')) {
 ```php
 $items = [];
 		
-$basket = \Bitrix\Sale\Basket::loadItemsForFUser(\Bitrix\Sale\Fuser::getId(), \Bitrix\Main\Application::getInstance()->getContext();
+$basket = \Bitrix\Sale\Basket::loadItemsForFUser(\Bitrix\Sale\Fuser::getId(), \Bitrix\Main\Application::getInstance()->getContext()->getSite());
 
 // <DISCOUNTS> : apply
 $discounts_context = new \Bitrix\Sale\Discount\Context\Fuser(\Bitrix\Sale\Fuser::getId());
