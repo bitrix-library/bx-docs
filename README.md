@@ -20,6 +20,8 @@ _Файлы представлены только для теста, они мо
 
 * [Приёмы работы с методами интернет-магазина D7](https://dev.1c-bitrix.ru/api_d7/bitrix/sale/technique/orders.php)
 
+* [D7-аналоги любимых функций в 1С-Битрикс](https://www.intervolga.ru/blog/projects/d7-analogi-lyubimykh-funktsiy-v-1s-bitriks/)
+
 ### Модули
 
 * [Структура полной сборки модуля](https://dev.1c-bitrix.ru/learning/course/index.php?COURSE_ID=101&LESSON_ID=3216&LESSON_PATH=8781.4793.3216)
