@@ -41,6 +41,8 @@ _Файлы представлены только для теста, они мо
 
 * [Страница и порядок её выполнения](https://dev.1c-bitrix.ru/api_help/main/general/pageplan.php)
 
+* [События модуля "Интернет-магазин"](https://dev.1c-bitrix.ru/api_help/sale/events/index.php)
+
 # Платежные системы
 
 ### Получение списка платежных систем D7
