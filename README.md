@@ -338,7 +338,7 @@ $eventManager->unRegisterEventHandler("main", "OnAfterEpilog", "mymodule", "\MyC
 $eventManager = \Bitrix\Main\EventManager::getInstance();
 $handler = $eventManager->addEventHandler("main", "OnAfterEpilog", array("\MyClass\MyClassBase", "myFunction"));
 $eventManager->removeEventHandler("main", "OnAfterEpilog", $handler);
-$handlers = EventManager::getInstance()->findEventHandlers("main", "OnAfterEpilog");
+$handlers = $eventManager->findEventHandlers("main", "OnAfterEpilog");
 ```
 
 ### Добавление полей в почтовые шаблоны события SALE_NEW_ORDER
