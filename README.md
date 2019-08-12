@@ -326,6 +326,13 @@ print_r($msg);
 
 # Обработчики событий
 
+### Пример создания и удаления долгосрочного обработчика события
+```php
+$eventManager = \Bitrix\Main\EventManager::getInstance();
+$eventManager->registerEventHandler("main", "OnAfterEpilog", "mymodule", "\MyClass\MyClassBase", "myFunction");
+$eventManager->unRegisterEventHandler("main", "OnAfterEpilog", "mymodule", "\MyClass\MyClassBase", "myFunction");
+```
+
 ### Добавление полей в почтовые шаблоны события SALE_NEW_ORDER
 ```php
 AddEventHandler("sale", "OnOrderNewSendEmail", "handlerOnOrderNewSendEmail");
