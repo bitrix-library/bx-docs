@@ -329,9 +329,10 @@ print_r($msg);
 AddEventHandler("sale", "OnOrderNewSendEmail", "handlerOnOrderNewSendEmail");
 
 function handlerOnOrderNewSendEmail($orderID, &$eventName, &$arFields) {
+
 	$arOrder = CSaleOrder::GetByID($orderID);
-	
 	$order_props = CSaleOrderPropsValue::GetOrderProps($orderID);
+
 	$name = "";
 	$last_name = "";
 	$phone = "";
@@ -340,6 +341,9 @@ function handlerOnOrderNewSendEmail($orderID, &$eventName, &$arFields) {
 	$street_name = "";
 	$house_name = "";
 	$flat_name = "";
+    $delivery_name = "";
+    $pay_system_name = "";
+
 	while ($arProps = $order_props->Fetch()) {
 		if ($arProps["CODE"] == "NAME") {
 			$name = htmlspecialchars($arProps["VALUE"]);
@@ -370,13 +374,11 @@ function handlerOnOrderNewSendEmail($orderID, &$eventName, &$arFields) {
 	$full_address = "$country_name $city_name $street_name $house_name $flat_name";
 	
 	$arDeliv = CSaleDelivery::GetByID($arOrder["DELIVERY_ID"]);
-	$delivery_name = "";
 	if ($arDeliv) {
 		$delivery_name = $arDeliv["NAME"];
 	}
 	
 	$arPaySystem = CSalePaySystem::GetByID($arOrder["PAY_SYSTEM_ID"]);
-	$pay_system_name = "";
 	if ($arPaySystem) {
 		$pay_system_name = $arPaySystem["NAME"];
 	}
