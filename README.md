@@ -50,16 +50,16 @@ _Файлы представлены только для теста, они мо
 ```php
 $paysystem = [];
 $db_list = \Bitrix\Sale\PaySystem\Manager::getList(
-  [
-    'select' => ['*'],
-    'filter' => [
-      '=ACTIVE' => 'Y'
+    [
+        'select' => ['*'],
+        'filter' => [
+          '=ACTIVE' => 'Y'
+        ]
     ]
-  ]
 );
 while ($db_el = $db_list->fetch()) {
-  $db_el['LOGOTIP'] = CFile::ResizeImageGet($db_el['LOGOTIP'], ['width' => 500, 'height' => 500], BX_RESIZE_IMAGE_PROPORTIONAL, true);
-  $paysystem[] = $db_el;
+    $db_el['LOGOTIP'] = CFile::ResizeImageGet($db_el['LOGOTIP'], ['width' => 500, 'height' => 500], BX_RESIZE_IMAGE_PROPORTIONAL, true);
+    $paysystem[] = $db_el;
 }
 print_r($paysystem);
 ```
@@ -72,13 +72,13 @@ print_r($paysystem);
 $delivery = [];
 $list = Delivery\Services\Manager::getActiveList();
 foreach ($list as $service) {
-  if ($service['CLASS_NAME'] == '\Bitrix\Sale\Delivery\Services\EmptyDeliveryService') {
-    continue;
-  }
-  $service['PROPS_GROUP_ID'] = 'DELIVERY';
-  $service['PRICE'] = $service['CONFIG']['MAIN']['PRICE'];
-  $service['LOGOTIP'] = CFile::ResizeImageGet($service['LOGOTIP'], ['width' => 500, 'height' => 500], BX_RESIZE_IMAGE_PROPORTIONAL, true);
-  $delivery[] = $service;
+    if ($service['CLASS_NAME'] == '\Bitrix\Sale\Delivery\Services\EmptyDeliveryService') {
+        continue;
+    }
+    $service['PROPS_GROUP_ID'] = 'DELIVERY';
+    $service['PRICE'] = $service['CONFIG']['MAIN']['PRICE'];
+    $service['LOGOTIP'] = CFile::ResizeImageGet($service['LOGOTIP'], ['width' => 500, 'height' => 500], BX_RESIZE_IMAGE_PROPORTIONAL, true);
+    $delivery[] = $service;
 }
 print_r($delivery);
 ```
@@ -113,31 +113,31 @@ $module_relative_path = str_replace($_SERVER['DOCUMENT_ROOT'], '', $module_absol
 ### Добавление товара в корзину D7
 ```php
 if (Loader::includeModule('sale')) {
-  $product_id = 1;
-  $basket = Basket::loadItemsForFUser(Fuser::getId(), Context::getCurrent()->getSite());
-  $basketItem = $basket->createItem('catalog', $product_id);
-  $basketItem->setFields(
-      [
-          'QUANTITY' => 4,
-          'CURRENCY' => Bitrix\Currency\CurrencyManager::getBaseCurrency(),
-          'LID' => Bitrix\Main\Context::getCurrent()->getSite(),
-          'PRODUCT_PROVIDER_CLASS' => 'CCatalogProductProvider'
-      ]
-  );
-  $basket->save();
-  print_r($basket->getListOfFormatText());
+    $product_id = 1;
+    $basket = Basket::loadItemsForFUser(Fuser::getId(), Context::getCurrent()->getSite());
+    $basketItem = $basket->createItem('catalog', $product_id);
+    $basketItem->setFields(
+        [
+            'QUANTITY' => 4,
+            'CURRENCY' => Bitrix\Currency\CurrencyManager::getBaseCurrency(),
+            'LID' => Bitrix\Main\Context::getCurrent()->getSite(),
+            'PRODUCT_PROVIDER_CLASS' => 'CCatalogProductProvider'
+        ]
+    );
+    $basket->save();
+    print_r($basket->getListOfFormatText());
 }
 ```
 
 ### Обновление товара в корзине D7
 ```php
 if (Loader::includeModule('sale')) {
-  $product_id = 1;
-  $basket = Basket::loadItemsForFUser(Fuser::getId(), Context::getCurrent()->getSite());
-  $basketItem = $basket->getExistsItem('catalog', $product_id);
-  $basketItem->setField('QUANTITY', $basketItem->getQuantity() + $quantity);
-  $basket->save();
-  print_r($basket->getListOfFormatText());
+    $product_id = 1;
+    $basket = Basket::loadItemsForFUser(Fuser::getId(), Context::getCurrent()->getSite());
+    $basketItem = $basket->getExistsItem('catalog', $product_id);
+    $basketItem->setField('QUANTITY', $basketItem->getQuantity() + $quantity);
+    $basket->save();
+    print_r($basket->getListOfFormatText());
 }
 ```
 
@@ -177,47 +177,47 @@ $basket->applyDiscount($result['BASKET_ITEMS']);
 $basket_items = $basket->getBasketItems();
 
 foreach ($basket_items as $obj) {
-  $item = [];
-  $item['PRODUCT_ID'] = $obj->getProductId();
-  $item['PRICE'] = $obj->getPrice();
-  $item['SUM_PRICE'] = $obj->getFinalPrice();
-  $item['CURRENCY'] = $obj->getCurrency();
-  $item['QUANTITY'] = $obj->getQuantity();
-  $item['WEIGHT'] = $obj->getWeight();
-  $item['FORMATTED_PRICE'] = \CCurrencyLang::CurrencyFormat($item['PRICE'], $item['CURRENCY']);
-  $item['SUM_FORMATTED_PRICE'] = \CCurrencyLang::CurrencyFormat($item['SUM_PRICE'], $item['CURRENCY']);
-
-  // Получение IBLOCK_ID элемента с которым связан продукт
-  $db_iblock_list = \CIBlockElement::GetById($item['PRODUCT_ID']);
-  if ($db_iblock_el = $db_iblock_list->GetNext()) {
-    $item['PRODUCT_IBLOCK_ID'] = $db_iblock_el['IBLOCK_ID'];
-  }
-  unset($db_iblock_list);
-
-  $allowed_fields_iblock = [
-    'ID',
-    'IBLOCK_ID',
-    'NAME',
-    'PREVIEW_PICTURE',
-    'DETAIL_PAGE_URL',
-  ]; // Если необходимо получить все свойства: ['ID', 'IBLOCK_ID', '*']
-
-  // Получение всех полей элемента с которым связан продукт
-  $db_iblock_list = \CIBlockElement::GetList(
-    [],
-    ['IBLOCK_ID' => $item['PRODUCT_IBLOCK_ID'], 'ID' => $item['PRODUCT_ID']],
-    false,
-    false,
-    $allowed_fields_iblock
-  );
-  if ($db_iblock_el = $db_iblock_list->GetNext()) {
-    // Получение картинки и изменение ее размеров
-    $db_iblock_el['PREVIEW_PICTURE'] = \CFile::ResizeImageGet($db_iblock_el["PREVIEW_PICTURE"], ['width' => 500, 'height' => 500], BX_RESIZE_IMAGE_PROPORTIONAL, true);
-    $item['PRODUCT'] = $db_iblock_el;
-  }
-  unset($db_iblock_list);
-
-  $items[] = $item;
+    $item = [];
+    $item['PRODUCT_ID'] = $obj->getProductId();
+    $item['PRICE'] = $obj->getPrice();
+    $item['SUM_PRICE'] = $obj->getFinalPrice();
+    $item['CURRENCY'] = $obj->getCurrency();
+    $item['QUANTITY'] = $obj->getQuantity();
+    $item['WEIGHT'] = $obj->getWeight();
+    $item['FORMATTED_PRICE'] = \CCurrencyLang::CurrencyFormat($item['PRICE'], $item['CURRENCY']);
+    $item['SUM_FORMATTED_PRICE'] = \CCurrencyLang::CurrencyFormat($item['SUM_PRICE'], $item['CURRENCY']);
+    
+    // Получение IBLOCK_ID элемента с которым связан продукт
+    $db_iblock_list = \CIBlockElement::GetById($item['PRODUCT_ID']);
+    if ($db_iblock_el = $db_iblock_list->GetNext()) {
+        $item['PRODUCT_IBLOCK_ID'] = $db_iblock_el['IBLOCK_ID'];
+    }
+    unset($db_iblock_list);
+    
+    $allowed_fields_iblock = [
+        'ID',
+        'IBLOCK_ID',
+        'NAME',
+        'PREVIEW_PICTURE',
+        'DETAIL_PAGE_URL',
+    ]; // Если необходимо получить все свойства: ['ID', 'IBLOCK_ID', '*']
+    
+    // Получение всех полей элемента с которым связан продукт
+    $db_iblock_list = \CIBlockElement::GetList(
+        [],
+        ['IBLOCK_ID' => $item['PRODUCT_IBLOCK_ID'], 'ID' => $item['PRODUCT_ID']],
+        false,
+        false,
+        $allowed_fields_iblock
+    );
+    if ($db_iblock_el = $db_iblock_list->GetNext()) {
+        // Получение картинки и изменение ее размеров
+        $db_iblock_el['PREVIEW_PICTURE'] = \CFile::ResizeImageGet($db_iblock_el["PREVIEW_PICTURE"], ['width' => 500, 'height' => 500], BX_RESIZE_IMAGE_PROPORTIONAL, true);
+        $item['PRODUCT'] = $db_iblock_el;
+    }
+    unset($db_iblock_list);
+    
+    $items[] = $item;
 }
 
 print_r($items);
