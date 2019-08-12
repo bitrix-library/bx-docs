@@ -330,63 +330,63 @@ AddEventHandler("sale", "OnOrderNewSendEmail", "handlerOnOrderNewSendEmail");
 
 function handlerOnOrderNewSendEmail($orderID, &$eventName, &$arFields) {
 
-	$arOrder = CSaleOrder::GetByID($orderID);
-	$order_props = CSaleOrderPropsValue::GetOrderProps($orderID);
-
-	$name = "";
-	$last_name = "";
-	$phone = "";
-	$country_name = "";
-	$city_name = "";
-	$street_name = "";
-	$house_name = "";
-	$flat_name = "";
+    $arOrder = CSaleOrder::GetByID($orderID);
+    $order_props = CSaleOrderPropsValue::GetOrderProps($orderID);
+    
+    $name = "";
+    $last_name = "";
+    $phone = "";
+    $country_name = "";
+    $city_name = "";
+    $street_name = "";
+    $house_name = "";
+    $flat_name = "";
     $delivery_name = "";
     $pay_system_name = "";
-
-	while ($arProps = $order_props->Fetch()) {
-		if ($arProps["CODE"] == "NAME") {
-			$name = htmlspecialchars($arProps["VALUE"]);
-		}
-		if ($arProps["CODE"] == "LASTNAME") {
-			$last_name = htmlspecialchars($arProps["VALUE"]);
-		}
-		if ($arProps["CODE"] == "PHONE") {
-			$phone = htmlspecialchars($arProps["VALUE"]);
-		}
-		if ($arProps["CODE"] == "COUNTRY") {
-			$country_name = htmlspecialchars($arProps["VALUE"]);
-		}
-		if ($arProps["CODE"] == "CITY") {
-			$city_name = htmlspecialchars($arProps["VALUE"]);
-		}
-		if ($arProps["CODE"] == "STREET") {
-			$street_name = htmlspecialchars($arProps["VALUE"]);
-		}
-		if ($arProps["CODE"] == "HOUSE") {
-			$house_name = htmlspecialchars($arProps["VALUE"]);
-		}
-		if ($arProps["CODE"] == "FLAT") {
-			$flat_name = htmlspecialchars($arProps["VALUE"]);
-		}
-	}
-	
-	$full_address = "$country_name $city_name $street_name $house_name $flat_name";
-	
-	$arDeliv = CSaleDelivery::GetByID($arOrder["DELIVERY_ID"]);
-	if ($arDeliv) {
-		$delivery_name = $arDeliv["NAME"];
-	}
-	
-	$arPaySystem = CSalePaySystem::GetByID($arOrder["PAY_SYSTEM_ID"]);
-	if ($arPaySystem) {
-		$pay_system_name = $arPaySystem["NAME"];
-	}
-	
-	$arFields["FULL_NAME"] = "$name $last_name";
-	$arFields["PHONE"] = $phone;
-	$arFields["DELIVERY_NAME"] = $delivery_name;
-	$arFields["PAY_SYSTEM_NAME"] = $pay_system_name;
-	$arFields["FULL_ADDRESS"] = $full_address;
+    
+    while ($arProps = $order_props->Fetch()) {
+        if ($arProps["CODE"] == "NAME") {
+            $name = htmlspecialchars($arProps["VALUE"]);
+        }
+        if ($arProps["CODE"] == "LASTNAME") {
+            $last_name = htmlspecialchars($arProps["VALUE"]);
+        }
+        if ($arProps["CODE"] == "PHONE") {
+            $phone = htmlspecialchars($arProps["VALUE"]);
+        }
+        if ($arProps["CODE"] == "COUNTRY") {
+            $country_name = htmlspecialchars($arProps["VALUE"]);
+        }
+        if ($arProps["CODE"] == "CITY") {
+            $city_name = htmlspecialchars($arProps["VALUE"]);
+        }
+        if ($arProps["CODE"] == "STREET") {
+            $street_name = htmlspecialchars($arProps["VALUE"]);
+        }
+        if ($arProps["CODE"] == "HOUSE") {
+            $house_name = htmlspecialchars($arProps["VALUE"]);
+        }
+        if ($arProps["CODE"] == "FLAT") {
+            $flat_name = htmlspecialchars($arProps["VALUE"]);
+        }
+    }
+    
+    $full_address = "$country_name $city_name $street_name $house_name $flat_name";
+    
+    $arDeliv = CSaleDelivery::GetByID($arOrder["DELIVERY_ID"]);
+    if ($arDeliv) {
+        $delivery_name = $arDeliv["NAME"];
+    }
+    
+    $arPaySystem = CSalePaySystem::GetByID($arOrder["PAY_SYSTEM_ID"]);
+    if ($arPaySystem) {
+        $pay_system_name = $arPaySystem["NAME"];
+    }
+    
+    $arFields["FULL_NAME"] = "$name $last_name";
+    $arFields["PHONE"] = $phone;
+    $arFields["DELIVERY_NAME"] = $delivery_name;
+    $arFields["PAY_SYSTEM_NAME"] = $pay_system_name;
+    $arFields["FULL_ADDRESS"] = $full_address;
 }
 ```
