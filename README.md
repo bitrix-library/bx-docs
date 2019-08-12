@@ -164,7 +164,7 @@ if (Loader::includeModule('sale')) {
 ### Получение списка товаров корзины текущего пользователя и связанных с ними элементов инфоблоков
 ```php
 $items = [];
-		
+        
 $basket = \Bitrix\Sale\Basket::loadItemsForFUser(\Bitrix\Sale\Fuser::getId(), \Bitrix\Main\Application::getInstance()->getContext()->getSite());
 
 // <DISCOUNTS> : apply
