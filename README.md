@@ -333,6 +333,14 @@ $eventManager->registerEventHandler("main", "OnAfterEpilog", "mymodule", "\MyCla
 $eventManager->unRegisterEventHandler("main", "OnAfterEpilog", "mymodule", "\MyClass\MyClassBase", "myFunction");
 ```
 
+### Пример создания и удаления краткосрочного обработчика события
+```php
+$eventManager = \Bitrix\Main\EventManager::getInstance();
+$handler = $eventManager->addEventHandler("main", "OnAfterEpilog", array("\MyClass\MyClassBase", "myFunction"));
+$eventManager->removeEventHandler("main", "OnAfterEpilog", $handler);
+$handlers = EventManager::getInstance()->findEventHandlers("main", "OnAfterEpilog");
+```
+
 ### Добавление полей в почтовые шаблоны события SALE_NEW_ORDER
 ```php
 AddEventHandler("sale", "OnOrderNewSendEmail", "handlerOnOrderNewSendEmail");
