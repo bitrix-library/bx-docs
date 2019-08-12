@@ -326,10 +326,9 @@ print_r($msg);
 
 ### Добавление полей в почтовые шаблоны события SALE_NEW_ORDER
 ```php
-AddEventHandler("sale", "OnOrderNewSendEmail", "bxModifySaleMails");
+AddEventHandler("sale", "OnOrderNewSendEmail", "handlerOnOrderNewSendEmail");
 
-function bxModifySaleMails($orderID, &$eventName, &$arFields)
-{
+function handlerOnOrderNewSendEmail($orderID, &$eventName, &$arFields) {
 	$arOrder = CSaleOrder::GetByID($orderID);
 	
 	$order_props = CSaleOrderPropsValue::GetOrderProps($orderID);
@@ -341,38 +340,29 @@ function bxModifySaleMails($orderID, &$eventName, &$arFields)
 	$street_name = "";
 	$house_name = "";
 	$flat_name = "";
-	while ($arProps = $order_props->Fetch())
-	{
-		if ($arProps["CODE"] == "NAME")
-		{
+	while ($arProps = $order_props->Fetch()) {
+		if ($arProps["CODE"] == "NAME") {
 			$name = htmlspecialchars($arProps["VALUE"]);
 		}
-		if ($arProps["CODE"] == "LASTNAME")
-		{
+		if ($arProps["CODE"] == "LASTNAME") {
 			$last_name = htmlspecialchars($arProps["VALUE"]);
 		}
-		if ($arProps["CODE"] == "PHONE")
-		{
+		if ($arProps["CODE"] == "PHONE") {
 			$phone = htmlspecialchars($arProps["VALUE"]);
 		}
-		if ($arProps["CODE"] == "COUNTRY")
-		{
+		if ($arProps["CODE"] == "COUNTRY") {
 			$country_name = htmlspecialchars($arProps["VALUE"]);
 		}
-		if ($arProps["CODE"] == "CITY")
-		{
+		if ($arProps["CODE"] == "CITY") {
 			$city_name = htmlspecialchars($arProps["VALUE"]);
 		}
-		if ($arProps["CODE"] == "STREET")
-		{
+		if ($arProps["CODE"] == "STREET") {
 			$street_name = htmlspecialchars($arProps["VALUE"]);
 		}
-		if ($arProps["CODE"] == "HOUSE")
-		{
+		if ($arProps["CODE"] == "HOUSE") {
 			$house_name = htmlspecialchars($arProps["VALUE"]);
 		}
-		if ($arProps["CODE"] == "FLAT")
-		{
+		if ($arProps["CODE"] == "FLAT") {
 			$flat_name = htmlspecialchars($arProps["VALUE"]);
 		}
 	}
@@ -381,15 +371,13 @@ function bxModifySaleMails($orderID, &$eventName, &$arFields)
 	
 	$arDeliv = CSaleDelivery::GetByID($arOrder["DELIVERY_ID"]);
 	$delivery_name = "";
-	if ($arDeliv)
-	{
+	if ($arDeliv) {
 		$delivery_name = $arDeliv["NAME"];
 	}
 	
 	$arPaySystem = CSalePaySystem::GetByID($arOrder["PAY_SYSTEM_ID"]);
 	$pay_system_name = "";
-	if ($arPaySystem)
-	{
+	if ($arPaySystem) {
 		$pay_system_name = $arPaySystem["NAME"];
 	}
 	
