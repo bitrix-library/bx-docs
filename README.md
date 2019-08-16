@@ -20,6 +20,8 @@ _Файлы представлены только для теста, они мо
 
 * [Приёмы работы с методами интернет-магазина D7](https://dev.1c-bitrix.ru/api_d7/bitrix/sale/technique/orders.php)
 
+* [Оформление заказа в компоненте sale.order.ajax без регистрации](http://support.altop.ru/q/nastroika-saita/otklyuchenie-shaga-registratsii-na-sayte-pri-oformlenii-zakaza/)
+
 * [D7-аналоги любимых функций в 1С-Битрикс](https://www.intervolga.ru/blog/projects/d7-analogi-lyubimykh-funktsiy-v-1s-bitriks/)
 
 ### Модули
