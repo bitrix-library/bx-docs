@@ -24,6 +24,10 @@ _Файлы представлены только для теста, они мо
 
 * [D7-аналоги любимых функций в 1С-Битрикс](https://www.intervolga.ru/blog/projects/d7-analogi-lyubimykh-funktsiy-v-1s-bitriks/)
 
+* [Работа с HighLoad (документация)](https://dev.1c-bitrix.ru/learning/course/index.php?COURSE_ID=43&LESSON_ID=5746&LESSON_PATH=3913.5062.5745.5746)
+
+* [Работа с HighLoad (habr)](https://habr.com/ru/post/207700/)
+
 ### Модули
 
 * [Структура полной сборки модуля](https://dev.1c-bitrix.ru/learning/course/index.php?COURSE_ID=101&LESSON_ID=3216&LESSON_PATH=8781.4793.3216)
