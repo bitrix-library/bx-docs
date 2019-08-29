@@ -28,6 +28,8 @@ _Файлы представлены только для теста, они мо
 
 * [Работа с HighLoad (habr)](https://habr.com/ru/post/207700/)
 
+* [Работа датой и временем D7](https://mrcappuccino.ru/blog/post/d7-work-with-datetime)
+
 ### Модули
 
 * [Структура полной сборки модуля](https://dev.1c-bitrix.ru/learning/course/index.php?COURSE_ID=101&LESSON_ID=3216&LESSON_PATH=8781.4793.3216)
