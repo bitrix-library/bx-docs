@@ -22,6 +22,8 @@ _Файлы представлены только для теста, они мо
 
 * [Оформление заказа в компоненте sale.order.ajax без регистрации](http://support.altop.ru/q/nastroika-saita/otklyuchenie-shaga-registratsii-na-sayte-pri-oformlenii-zakaza/)
 
+* [Оформление заказа по номеру телефона](https://marketplace.1c-bitrix.ru/solutions/sotbit.orderphone/#tab-install-link)
+
 * [D7-аналоги любимых функций в 1С-Битрикс](https://www.intervolga.ru/blog/projects/d7-analogi-lyubimykh-funktsiy-v-1s-bitriks/)
 
 * [Работа с HighLoad (документация)](https://dev.1c-bitrix.ru/learning/course/index.php?COURSE_ID=43&LESSON_ID=5746&LESSON_PATH=3913.5062.5745.5746)
