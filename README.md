@@ -357,9 +357,9 @@ AddEventHandler("sale", "OnOrderNewSendEmail", "handlerOnOrderNewSendEmail");
 
 function handlerOnOrderNewSendEmail($orderID, &$eventName, &$arFields) {
 
-    $arOrder = CSaleOrder::GetByID($orderID);
+    $order = CSaleOrder::GetByID($orderID);
     $order_props = CSaleOrderPropsValue::GetOrderProps($orderID);
-    
+
     $name = "";
     $last_name = "";
     $phone = "";
@@ -370,7 +370,7 @@ function handlerOnOrderNewSendEmail($orderID, &$eventName, &$arFields) {
     $flat_name = "";
     $delivery_name = "";
     $pay_system_name = "";
-    
+
     while ($arProps = $order_props->Fetch()) {
         if ($arProps["CODE"] == "NAME") {
             $name = htmlspecialchars($arProps["VALUE"]);
@@ -397,23 +397,22 @@ function handlerOnOrderNewSendEmail($orderID, &$eventName, &$arFields) {
             $flat_name = htmlspecialchars($arProps["VALUE"]);
         }
     }
-    
-    $full_address = "$country_name $city_name $street_name $house_name $flat_name";
-    
-    $arDeliv = CSaleDelivery::GetByID($arOrder["DELIVERY_ID"]);
+
+    $arDeliv = CSaleDelivery::GetByID($order["DELIVERY_ID"]);
     if ($arDeliv) {
         $delivery_name = $arDeliv["NAME"];
     }
-    
-    $arPaySystem = CSalePaySystem::GetByID($arOrder["PAY_SYSTEM_ID"]);
+
+    $arPaySystem = CSalePaySystem::GetByID($order["PAY_SYSTEM_ID"]);
     if ($arPaySystem) {
         $pay_system_name = $arPaySystem["NAME"];
     }
-    
+
     $arFields["FULL_NAME"] = "$name $last_name";
     $arFields["PHONE"] = $phone;
     $arFields["DELIVERY_NAME"] = $delivery_name;
     $arFields["PAY_SYSTEM_NAME"] = $pay_system_name;
-    $arFields["FULL_ADDRESS"] = $full_address;
+    $arFields["FULL_ADDRESS"] = "$country_name $city_name $street_name $house_name $flat_name";
+    $arFields["USER_DESCRIPTION"] = $order["USER_DESCRIPTION"];
 }
 ```
