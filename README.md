@@ -12,7 +12,7 @@ _Файлы представлены только для теста, они мо
 
 * [Работа с Bitrix API](https://github.com/sidigi/bitrix-info/wiki)
 
-* [Создание многоуровневого меню](https://abraxabra.ru/blog/bitrix-zametki/multilevel-menu-bitrix/)
+* [Создание многоуровневого меню](https://dev.1c-bitrix.ru/learning/course/index.php?COURSE_ID=43&LESSON_ID=3498#menu_from_block)
 
 * [Работа с заказами D7](https://dev.1c-bitrix.ru/api_d7/bitrix/sale/technique/index.php)
 
