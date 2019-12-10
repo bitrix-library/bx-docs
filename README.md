@@ -382,6 +382,15 @@ function OnAfterIBlockElementUpdateHandler(&$arFields) {
 }
 ```
 
+### Создание собственного события
+```php
+// В качестве аргумента, в функцию-обработчик будет передан объект $event
+// Дополнительные параметры передаются с помощью методов setParameter() и setParameters() объекта $event
+// Получить дополнительные параметры возможно с помощью метода getParameter() и getParameters() объекта $event
+$event = new \Bitrix\Main\Event("main", "CustomEventName");
+$event->send();
+```
+
 ### Добавление полей в почтовые шаблоны события SALE_NEW_ORDER
 ```php
 AddEventHandler("sale", "OnOrderNewSendEmail", "handlerOnOrderNewSendEmail");
