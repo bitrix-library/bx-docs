@@ -351,6 +351,37 @@ $eventManager->removeEventHandler("main", "OnAfterEpilog", $handler);
 $handlers = $eventManager->findEventHandlers("main", "OnAfterEpilog");
 ```
 
+### Замена отсутствующих картинок в инфоблоке заглушками
+```php
+function replaceEmptyPictures($id) {
+	$db_list = CIBlockElement::GetByID($id);
+	if ($db_el = $db_list->GetNext()) {
+		$fields = array();
+		
+		if (empty($db_el["DETAIL_PICTURE"])) {
+			$fields["DETAIL_PICTURE"] = CFile::MakeFileArray($_SERVER["DOCUMENT_ROOT"] . "/local/assets/empty.png");
+		}
+		
+		if (empty($db_el["PREVIEW_PICTURE"])) {
+			$fields["PREVIEW_PICTURE"] = CFile::MakeFileArray($_SERVER["DOCUMENT_ROOT"] . "/local/assets/empty.png");
+		}
+		
+		if (!empty($fields)) {
+			$element = new CIBlockElement();
+			$element->Update($db_el["ID"], $fields);
+		}
+	}
+}
+
+function OnAfterIBlockElementAddHandler(&$arFields) {
+	replaceEmptyPictures($arFields["ID"]);
+}
+
+function OnAfterIBlockElementUpdateHandler(&$arFields) {
+	replaceEmptyPictures($arFields["ID"]);
+}
+```
+
 ### Добавление полей в почтовые шаблоны события SALE_NEW_ORDER
 ```php
 AddEventHandler("sale", "OnOrderNewSendEmail", "handlerOnOrderNewSendEmail");
