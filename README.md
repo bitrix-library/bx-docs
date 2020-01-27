@@ -1,13 +1,3 @@
-# Файлы
-
-_Файлы представлены только для теста, они могут быть незавершенными или частичными._
-
-* [ajax_basket_handler.php - Пример handler-а для работы с корзиной при помощи ajax-запросов](https://github.com/amensum/bitrix-info/blob/master/ajax_basket_handler.php)
-
-* [ajax_basket_template.php - Пример шаблона для работы с корзиной при помощи ajax-запросов](https://github.com/amensum/bitrix-info/blob/master/ajax_basket_template.php)
-
-* [custom_smart_filter_template.php - Пример шаблона умного фильтра](https://github.com/amensum/bitrix-info/blob/master/custom_smart_filter_template.php), где в качестве component.js для работы с GET-параметрами должен быть подключен [init.js](https://github.com/amensum/js-helpers/blob/master/init.js)
-
 # Полезные ссылки
 
 * [Работа с Bitrix API](https://github.com/sidigi/bitrix-info/wiki)
