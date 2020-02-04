@@ -446,3 +446,11 @@ function handlerOnOrderNewSendEmail($orderID, &$eventName, &$arFields) {
     $arFields["USER_DESCRIPTION"] = $order["USER_DESCRIPTION"];
 }
 ```
+
+### Обработка полей и шаблона перед отправкой письма почтового события
+```php
+function OnBeforeEventSendHandler(&$arFields, &$arTemplate) {
+	// TODO
+}
+AddEventHandler('main', 'OnBeforeEventSend', 'OnBeforeEventSendHandler');
+```
