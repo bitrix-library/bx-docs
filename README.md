@@ -43,6 +43,16 @@
 
 * [События модуля "Интернет-магазин"](https://dev.1c-bitrix.ru/api_help/sale/events/index.php)
 
+# 1C
+
+### Возможность интеграции с старыми версиями модуля обмена
+
+```php
+// В "Командная PHP-строка":
+echo COption::SetOptionString("catalog", "DEFAULT_SKIP_SOURCE_CHECK", "Y" );
+echo COption::SetOptionString("sale", "secure_1c_exchange", "N" );
+```
+
 # Платежные системы
 
 ### Получение списка платежных систем D7
