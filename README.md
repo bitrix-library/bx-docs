@@ -454,6 +454,36 @@ function handlerOnOrderNewSendEmail($orderID, &$eventName, &$arFields) {
     $arFields["PAY_SYSTEM_NAME"] = $pay_system_name;
     $arFields["FULL_ADDRESS"] = "$country_name $city_name $street_name $house_name $flat_name";
     $arFields["USER_DESCRIPTION"] = $order["USER_DESCRIPTION"];
+    
+    // Формирование списка заказанных товаров
+    if (CModule::IncludeModule('sale') && CModule::IncludeModule('iblock')) {
+        $arFields['ORDER_LIST'] = '';
+
+        $basket = CSaleBasket::GetList(
+            ['NAME' => 'ASC'],
+            ['ORDER_ID' => $orderID],
+            false,
+            false,
+            ['PRODUCT_ID', 'ID', 'NAME', 'QUANTITY', 'PRICE', 'CURRENCY']
+        );
+
+        while ($db_el = $basket->GetNext()) {
+            $article = '';
+
+            $article_db_list = CIBlockElement::GetProperty(CATALOG_IBLOCK_ID, $db_el['PRODUCT_ID'], [], ['CODE' => 'EMARKET_ARTICLE']);
+            if ($article_db_el = $article_db_list->GetNext()) {
+                $article = $article_db_el['VALUE'];
+            }
+
+            $arFields['ORDER_LIST'] .=
+                'Артикул: ' . $article . ', '
+                . 'ID: ' . $db_el['ID'] . ', '
+                . 'Название: ' . $db_el['NAME'] . ', '
+                . 'Количество: ' . $db_el['QUANTITY'] . ', '
+                . 'Стоимость: ' . SaleFormatCurrency($db_el['PRICE'], $db_el['CURRENCY'])
+                . "\n";
+        }
+    }
 }
 ```
 
