@@ -393,6 +393,8 @@ $event->send();
 
 ### Добавление полей в почтовые шаблоны события SALE_NEW_ORDER
 ```php
+define('CATALOG_IBLOCK_ID', 1);
+
 AddEventHandler("sale", "OnOrderNewSendEmail", "handlerOnOrderNewSendEmail");
 
 function handlerOnOrderNewSendEmail($orderID, &$eventName, &$arFields) {
